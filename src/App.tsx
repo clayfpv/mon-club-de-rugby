@@ -10,10 +10,14 @@ import TeamDetailPage from './pages/TeamDetailPage';
 import CompositionsPage from './pages/CompositionsPage.tsx';
 
 function App() {
-  const { session, loading, profile } = useAuth();
+  const { session, loading, profile, authEvent } = useAuth();
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center"><h1>Chargement...</h1></div>;
+  }
+
+  if (authEvent === 'PASSWORD_RECOVERY') {
+    return <Navigate to="/login" replace />;
   }
 
   // Si l'utilisateur n'est pas connecté, il est redirigé vers la page de connexion.
